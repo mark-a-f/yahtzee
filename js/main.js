@@ -1,7 +1,14 @@
+// CONTENTS TABLE:
+// 1. line 7 - Class Player
+// 2. line 66 - Dynamic Creation of Score Table
+// 3. line 242 - Page reset button (maybe move this to a seperate section with smaller page functions)
+// 4. line 249 - Creation of Player Object
+// 5. 
+
 // new class to hold player information
 // This class holds the information for their unique id, player name and all their scores
 class player {
-    constructor(id, name, ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance, topScore) {
+    constructor(id, name, ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance, topScore, topTotalScore, bonus) {
 
         this.id = id;
         this.name = name;
@@ -17,7 +24,9 @@ class player {
         this.smallStraight = smallStraight;
         this.largeStraight = largeStraight;
         this.chance = chance;
-        this.topScore = topScore;               
+        this.topScore = topScore;
+        this.topTotalScore = topTotalScore;
+        this.bonus = bonus;               
     }
 
     // Setters
@@ -49,14 +58,22 @@ class player {
         this.sixes = value;
     }
 
+    set updateBonus(value) {
+        this.bonus = value;
+    }
+
     set updateTopScore(value) {
         this.topScore = value;
+    }
+
+    set updateTopTotalScore(value) {
+        this.topTotalScore = value;
     }
 }
 
 //***************************************************************************/
 //***************************************************************************/
-// Dynamically create table columns based on number of players
+// DYNAMIC CREATION OF SCORE TABLE
 //***************************************************************************///***************************************************************************/
 
 document.querySelector('#createSheet').addEventListener('click', addPlayers);
@@ -79,51 +96,56 @@ function addPlayers() {
             // Select the table row, append the correct child to it            
 
             // Top Row
+            // Select the parent row by it's id
             elementToAppend = document.getElementById('row1');
+            // Create 'th' element
             elementToCreate = document.createElement('th');
+            // html that changes based on player number (i)
             htmlToInsert = `<th><input type="text" placeholder="Player ${i}" id="player${i}" class="player${i}" onblur="updateScores(this)"></th>`;
+            // set this html to the inner html of the element that is to be created
             elementToCreate.innerHTML = htmlToInsert;
+            // add this element child to the parent
             elementToAppend.appendChild(elementToCreate);
 
             // Ones scores row
             elementToAppend = document.getElementById('row2');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="number" id="scoreOnesPlayer${i}" class="player${i}" onblur="updateOnesScore(this)"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreOnesPlayer${i}" class="player${i}" oninput="updateOnesScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // Twos scores row
             elementToAppend = document.getElementById('row3');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="number" id="scoreTwosPlayer${i}" class="player${i}" onblur="updateTwosScore(this)"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreTwosPlayer${i}" class="player${i}" oninput="updateTwosScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // Threes scores row
             elementToAppend = document.getElementById('row4');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="number" id="scoreThreesPlayer${i}" class="player${i}" onblur="updateThreesScore(this)"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreThreesPlayer${i}" class="player${i}" oninput="updateThreesScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // Fours scores row
             elementToAppend = document.getElementById('row5');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="number" id="scoreFoursPlayer${i}" class="player${i}" onblur="updateFoursScore(this)"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreFoursPlayer${i}" class="player${i}" oninput="updateFoursScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // Fives scores row
             elementToAppend = document.getElementById('row6');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="number" id="scoreFivesPlayer${i}" class="player${i}" onblur="updateFivesScore(this)"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreFivesPlayer${i}" class="player${i}" oninput="updateFivesScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // Sixes scores row
             elementToAppend = document.getElementById('row7');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="number" id="scoreSixesPlayer${i}" class="player${i}" onblur="updateSixesScore(this)"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreSixesPlayer${i}" class="player${i}" oninput="updateSixesScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
@@ -218,7 +240,7 @@ function addPlayers() {
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
-
+            // increase iterator
             i++;
         }
         // Create the player objects
@@ -228,41 +250,37 @@ function addPlayers() {
 
 }
 
-
-// Page refresh when Rest button pressed
-document.querySelector('#resetSheet').addEventListener('click', resetSheet);
-function resetSheet() {
-    location.reload();
-}
-
 //***************************************************************************/
 //***************************************************************************/
-// Creation of player objects
+// CREATION OF PLAYER OBJECTS
+//***************************************************************************/
+//***************************************************************************/
 
-// Array to store each player object
+// Array to store the player objects
 let playersArray = [];
 
-function createPlayers(numOfPlayers) {        
+function createPlayers(numOfPlayers) {
+    // Function accepts a number, creates a playerObject for each player using default values for scores
+    // Places this playerObject into playersArray        
     
-    // Default values to pass into player object    
-    // DO I NEED TO DO THIS??????
-    // I DIDN'T SET ANYTHING FOR TOPSCORE YET IT STILL WORKS
-    // CHECK THIS 
-    let name;
-    let onesScore = 0;
-    let twosScore = 0;
-    let threesScore = 0;
-    let foursScore = 0;
-    let fivesScore = 0;
-    let sixesScore = 0;
-    let threeOfKind = 0;
-    let fourOfKind = 0;
-    let fullHouse = 0;
-    let smallStraight = 0;
-    let largeStraight = 0;
-    let chance = 0;
-    let topScore = 0;
+    // Default values to pass into player object
+    // Prevents NaN errors   
+     let name;
+    // let onesScore = 0;
+    // let twosScore = 0;
+    // let threesScore = 0;
+    // let foursScore = 0;
+    // let fivesScore = 0;
+    // let sixesScore = 0;
+    // let threeOfKind = 0;
+    // let fourOfKind = 0;
+    // let fullHouse = 0;
+    // let smallStraight = 0;
+    // let largeStraight = 0;
+    // let chance = 0;
+    // let bonus = 0;    
 
+    // set iteration variable
     let i = 1;
 
     while (i <= numOfPlayers) {
@@ -271,8 +289,9 @@ function createPlayers(numOfPlayers) {
         name = `Player ${i}`;        
 
         // Create new player object
-        playersArray[i] = new player(id, name, onesScore, twosScore, threesScore, foursScore, fivesScore, sixesScore, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance);        
+        playersArray[i] = new player(id, name);        
 
+        // increase iterator
         i++;
     }
 }
@@ -283,6 +302,7 @@ function createPlayers(numOfPlayers) {
 // Use the element's class name to link to the correct player (element class name + player ID will match)
 //
 
+// NOT USING THIS RIGHT NOW - POTENTIAL FOR REMOVAL
 function updateScores(item) {
     
     // item is the element where the score was entered
@@ -308,9 +328,7 @@ function updateScores(item) {
     console.log('PlayerNumber = ' + playerNumber);
 
     let playerOjbect = playersArray[playerNumber];
-    console.log(playerOjbect);
-     
-
+    console.log(playerOjbect);  
 }
 
 // Function accepts a HTML element, returns the playerObject associated with this element
@@ -323,8 +341,8 @@ function fetchPlayerObject(item) {
     let playerObject = playersArray[playerNumber];
 
     return playerObject;
-
 }
+
 //**************************************************************
 //**************************************************************
 // FUNCTIONS TO UPDATE SCORES
@@ -371,8 +389,7 @@ function updateSixesScore(item) {
     playerObject.updateSixes = parseInt(item.value);
     updateUpperScores(playerObject);
 
-    console.log(playerObject);
-    
+    console.log(playerObject);    
 }
 
 //********************************************************************/
@@ -387,18 +404,77 @@ function updateUpperScores(playerObject) {
     let playerObjectArray = Object.values(playerObject);    
 
     let total = 0;
-    // i needs to start at '2' as this is the position in playerObjectArray of the first score
+    // i starts at '2' as this is the position in playerObjectArray of the first score
     let i = 2;
 
     // loop through up to and including the final score (score for sixes = position 7) in playerObject
     while (i <= 7) {
-        total += playerObjectArray[i];
+        if (typeof(playerObjectArray[i]) == "undefined" || isNaN(playerObjectArray[i]) ) {
+            total += 0;
+        } else {
+            total += playerObjectArray[i];
+        }
+        
         i++;
     }
 
     // set TopScore attribute of the playerObject
-    playerObject.updateTopScore = total;   
+    playerObject.updateTopScore = total;      
 
-    // set value of topScore
+    // set value of topScore element
     document.getElementById(`topScore${playerObject.id}`).innerHTML = total;
+
+    // Score check & update functions to run
+    checkBonus(playerObject, total);
+    updateTopTotalScore(playerObject, total, playerObject.bonus); 
+
+}
+
+// CHECK FOR BONUS AND UPDATE FIELD
+function checkBonus(playerObject, total) {
+    // Accepts playerObject and total score
+    // If total score is greater than 62, set Bonus attribute of player object to 35 and update HTML with the score
+    // If total score is 62 or less, set Bonus attribute to zero and update HTML with score
+
+    // if total greater than 62, the Bonus is active (extra 35 points for the top section)
+    if (total > 62) {
+        // set bonus attribute to 35 points
+        playerObject.updateBonus = 35;
+        // set value of Bonus box on sheet
+        document.getElementById(`bonusScore${playerObject.id}`).innerHTML = 35;
+    } else {
+        // set bonus attribute to 0
+        playerObject.updateBonus = 0;
+        // set value of Bonus box on sheet
+        document.getElementById(`bonusScore${playerObject.id}`).innerHTML = 0;
+    }
+}
+
+// CALCULATE AND UPDATE TOTAL OF UPPER SECTION
+function updateTopTotalScore(playerObject, total, bonus) {
+    // Adds total and bonus together
+    // Sets TopTotalScore attribute of player object
+    // Sets HTML of table element to display TopTotalScore
+    
+    playerObject.updateTopTotalScore = total + bonus;
+    document.getElementById(`totalTopScore${playerObject.id}`).innerHTML = playerObject.topTotalScore;
+}
+
+
+
+
+
+
+
+
+
+
+
+//***************************************************** */
+// PAGE FUNCTIONS
+//****************************************************** */
+// Page refresh when Rest button pressed
+document.querySelector('#resetSheet').addEventListener('click', resetSheet);
+function resetSheet() {
+    location.reload();
 }
