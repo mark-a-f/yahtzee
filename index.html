@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yahtzee Score Tracker</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>    
+    
+    <h1>Yahtzee Score Tracker</h1>
+    <!-- <h2>How to play</h2>
+    <h3>In short:</h3>
+    <ol>
+        <li>To determine who starts, each player rolls one die. The player with the highest roll starts, and then it follows a clockwise order.</li>
+        <li>Roll up to 3 times each turn to gain the best possible score.</li>
+        <li>Decide which dice combo you want.</li>
+        <li>After each turn, note your score in the score card below.</li>
+        <li>Player with the highest score at the end wins.</li>
+    </ol> -->
+
+    <label for="numOfPlayers">Number of players:</label>
+    <input type="number" id="numOfPlayers" name="numOfPlayers">
+    <button id="createSheet">Generate Score Sheet</button>
+    <button id="resetSheet">Reset Sheet</button>
+    <button id="testButton" class="player1">Test Button</button>
+
+    <section class="table">
+        <table>
+            <tr id="row1">
+                <th>Upper Section</th>
+                <th>How To Score</th>
+                <!-- <th><input type="text" placeholder="Player 1" id="player1" class="player1"></th> -->
+                <!-- <th><input type="text" placeholder="Player 2" id="player2" class="player2"></th>
+                <th><input type="text" placeholder="Player 3" id="player3" class="player3"></th>
+                <th><input type="text" placeholder="Player 4" id="player4" class="player4"></th>
+                <th><input type="text" placeholder="Player 5" id="player5" class="player5"></th>
+                <th><input type="text" placeholder="Player 6" id="player6" class="player6"></th> -->
+            </tr>
+            <tr id="row2">
+                <td>Ones (1)</td>
+                <td>Count and add only ones</td>
+                <!-- <td><input type="number" id="scoreOnesPlayer1" class="player1"></td>
+                <td><input type="number" id="scoreOnesPlayer2" class="player2"></td>
+                <td><input type="number" id="scoreOnesPlayer3" class="player3"></td>
+                <td><input type="number" id="scoreOnesPlayer4" class="player4"></td>
+                <td><input type="number" id="scoreOnesPlayer5" class="player5"></td>
+                <td><input type="number" id="scoreOnesPlayer6" class="player6"></td> -->
+            </tr>
+            <tr  id="row3">
+                <td>Twos (2)</td>
+                <td>Count and add only twos</td>
+                <!-- <td><input type="number" id="scoreTwosPlayer1" class="player1"></td>
+                <td><input type="number" id="scoreTwosPlayer2" class="player2"></td>
+                <td><input type="number" id="scoreTwosPlayer3" class="player3"></td>
+                <td><input type="number" id="scoreTwosPlayer4" class="player4"></td>
+                <td><input type="number" id="scoreTwosPlayer5" class="player5"></td>
+                <td><input type="number" id="scoreTwosPlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row4">
+                <td>Threes (3)</td>
+                <td>Count and add only threes</td>
+                <!-- <td><input type="number" id="scoreThreesPlayer1" class="player1"></td>
+                <td><input type="number" id="scoreThreesPlayer2" class="player2"></td>
+                <td><input type="number" id="scoreThreesPlayer3" class="player3"></td>
+                <td><input type="number" id="scoreThreesPlayer4" class="player4"></td>
+                <td><input type="number" id="scoreThreesPlayer5" class="player5"></td>
+                <td><input type="number" id="scoreThreesPlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row5">
+                <td>Fours (4)</td>
+                <td>Count and add only fours</td>
+                <!-- <td><input type="number" id="scoreFoursPlayer1" class="player1"></td>
+                <td><input type="number" id="scoreFoursPlayer2" class="player2"></td>
+                <td><input type="number" id="scoreFoursPlayer3" class="player3"></td>
+                <td><input type="number" id="scoreFoursPlayer4" class="player4"></td>
+                <td><input type="number" id="scoreFoursPlayer5" class="player5"></td>
+                <td><input type="number" id="scoreFoursPlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row6">
+                <td>Fives (5)</td>
+                <td>Count and add only fives</td>
+                <!-- <td><input type="number" id="scoreFivesPlayer1" class="player1"></td>
+                <td><input type="number" id="scoreFivesPlayer2" class="player2"></td>
+                <td><input type="number" id="scoreFivesPlayer3" class="player3"></td>
+                <td><input type="number" id="scoreFivesPlayer4" class="player4"></td>
+                <td><input type="number" id="scoreFivesPlayer5" class="player5"></td>
+                <td><input type="number" id="scoreFivesPlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row7">
+                <td>Sixes (6)</td>
+                <td>Count and add only sixes</td>
+                <!-- <td><input type="number" id="scoreSixesPlayer1" class="player1"></td>
+                <td><input type="number" id="scoreSixesPlayer2" class="player2"></td>
+                <td><input type="number" id="scoreSixesPlayer3" class="player3"></td>
+                <td><input type="number" id="scoreSixesPlayer4" class="player4"></td>
+                <td><input type="number" id="scoreSixesPlayer5" class="player5"></td>
+                <td><input type="number" id="scoreSixesPlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row8">
+                <td></td>
+                <td>Total Score:</td>
+                <!-- <td id="topScorePlayer1" class="player1"></td>
+                <td id="topScorePlayer2" class="player2"></td> 
+                <td id="topScorePlayer3" class="player3"></td> 
+                <td id="topScorePlayer4" class="player4"></td> 
+                <td id="topScorePlayer5" class="player5"></td> 
+                <td id="topScorePlayer6" class="player6"></td>  -->
+            </tr>
+            <tr id="row9">
+                <td>Bonus <span>(If total score is 63 or over)</span></td>
+                <td>Score 35</td>
+                <!-- <td id="bonusScorePlayer1" class="player1"></td>
+                <td id="bonusScorePlayer2" class="player2"></td> 
+                <td id="bonusScorePlayer3" class="player3"></td> 
+                <td id="bonusScorePlayer4" class="player4"></td> 
+                <td id="bonusScorePlayer5" class="player5"></td> 
+                <td id="bonusScorePlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row10">
+                <td>Total <span>of upper section</span></td>
+                <td></td>
+                <!-- <td id="totalTopScorePlayer1" class="player1"></td>
+                <td id="totalTopScorePlayer2" class="player2"></td> 
+                <td id="totalTopScorePlayer3" class="player3"></td> 
+                <td id="totalTopScorePlayer4" class="player4"></td> 
+                <td id="totalTopScorePlayer5" class="player5"></td> 
+                <td id="totalTopScorePlayer6" class="player6"></td> -->
+            </tr>
+            <tr>
+                <td class="lower-section-break">Lower Section</td>
+            </tr>
+            <tr id="row11">
+                <td>3 of a kind</td>
+                <td>Add total of all dice</td>
+                <!-- <td><input type="number" id="scoreThreeOfAKindPlayer1" class="player1"></td>
+                <td><input type="number" id="scoreThreeOfAKindPlayer2" class="player2"></td>
+                <td><input type="number" id="scoreThreeOfAKindPlayer3" class="player3"></td>
+                <td><input type="number" id="scoreThreeOfAKindPlayer4" class="player4"></td>
+                <td><input type="number" id="scoreThreeOfAKindPlayer5" class="player5"></td>
+                <td><input type="number" id="scoreThreeOfAKindPlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row12">
+                <td>4 of a kind</td>
+                <td>Add total of all dice</td>
+                <!-- <td><input type="number" id="scoreFourOfAKindPlayer1" class="player1"></td>
+                <td><input type="number" id="scoreFourOfAKindPlayer2" class="player2"></td>
+                <td><input type="number" id="scoreFourOfAKindPlayer3" class="player3"></td>
+                <td><input type="number" id="scoreFourOfAKindPlayer4" class="player4"></td>
+                <td><input type="number" id="scoreFourOfAKindPlayer5" class="player5"></td>
+                <td><input type="number" id="scoreFourOfAKindPlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row13">
+                <td>Full House</td>
+                <td>Score 25</td>
+                <!-- <td><input type="checkbox" id="scoreFullHousePlayer1" class="player1"></td>
+                <td><input type="checkbox" id="scoreFullHousePlayer2" class="player2"></td>
+                <td><input type="checkbox" id="scoreFullHousePlayer3" class="player3"></td>
+                <td><input type="checkbox" id="scoreFullHousePlayer4" class="player4"></td>
+                <td><input type="checkbox" id="scoreFullHousePlayer5" class="player5"></td>
+                <td><input type="checkbox" id="scoreFullHousePlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row14">
+                <td>Small Straight</td>
+                <td>Score 30</td>
+                <!-- <td><input type="checkbox" id="scoreSmallStraightPlayer1" class="player1"></td>
+                <td><input type="checkbox" id="scoreSmallStraightPlayer2" class="player2"></td>
+                <td><input type="checkbox" id="scoreSmallStraightPlayer3" class="player3"></td>
+                <td><input type="checkbox" id="scoreSmallStraightPlayer4" class="player4"></td>
+                <td><input type="checkbox" id="scoreSmallStraightPlayer5" class="player5"></td>
+                <td><input type="checkbox" id="scoreSmallStraightPlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row15">
+                <td>Large Straight</td>
+                <td>Score 40</td>
+                <!-- <td><input type="checkbox" id="scoreLargeStraightPlayer1" class="player1"></td>
+                <td><input type="checkbox" id="scoreLargeStraightPlayer2" class="player2"></td>
+                <td><input type="checkbox" id="scoreLargeStraightPlayer3" class="player3"></td>
+                <td><input type="checkbox" id="scoreLargeStraightPlayer4" class="player4"></td>
+                <td><input type="checkbox" id="scoreLargeStraightPlayer5" class="player5"></td>
+                <td><input type="checkbox" id="scoreLargeStraightPlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row16">
+                <td>Yahtzee</td>
+                <td>Score 50</td>
+                <!-- <td><input type="checkbox" id="scoreYahtzeePlayer1" class="player1"></td>
+                <td><input type="checkbox" id="scoreYahtzeePlayer2" class="player2"></td>
+                <td><input type="checkbox" id="scoreYahtzeePlayer3" class="player3"></td>
+                <td><input type="checkbox" id="scoreYahtzeePlayer4" class="player4"></td>
+                <td><input type="checkbox" id="scoreYahtzeePlayer5" class="player5"></td>
+                <td><input type="checkbox" id="scoreYahtzeePlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row17">
+                <td>Chance</td>
+                <td>Add total of all dice</td>
+                <!-- <td><input type="number" id="scoreChancePlayer1" class="player1"></td>
+                <td><input type="number" id="scoreChancePlayer2" class="player2"></td>
+                <td><input type="number" id="scoreChancePlayer3" class="player3"></td>
+                <td><input type="number" id="scoreChancePlayer4" class="player4"></td>
+                <td><input type="number" id="scoreChancePlayer5" class="player5"></td>
+                <td><input type="number" id="scoreChancePlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row18">
+                <td>Total <span>of lower section</span></td>
+                <td></td>
+                <!-- <td id="totalLowerPlayer1" class="player1"></td>
+                <td id="totalLowerPlayer2" class="player2"></td> 
+                <td id="totalLowerPlayer3" class="player3"></td> 
+                <td id="totalLowerPlayer4" class="player4"></td> 
+                <td id="totalLowerPlayer5" class="player5"></td> 
+                <td id="totalLowerPlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row19">
+                <td>Total <span>of upper section</span></td>
+                <td></td>
+                <!-- <td id="totalTopScorePlayer1" class="player1"></td>
+                <td id="totalTopScorePlayer2" class="player2"></td> 
+                <td id="totalTopScorePlayer3" class="player3"></td> 
+                <td id="totalTopScorePlayer4" class="player4"></td> 
+                <td id="totalTopScorePlayer5" class="player5"></td> 
+                <td id="totalTopScorePlayer6" class="player6"></td> -->
+            </tr>
+            <tr id="row20">
+                <td>Grand Total</td>
+                <td></td>
+                <!-- <td id="GrandTotalPlayer1" class="player1"></td>
+                <td id="GrandTotalPlayer2" class="player2"></td> 
+                <td id="GrandTotalPlayer3" class="player3"></td> 
+                <td id="GrandTotalPlayer4" class="player4"></td> 
+                <td id="GrandTotalPlayer5" class="player5"></td> 
+                <td id="GrandTotalPlayer6" class="player6"></td> -->
+            </tr>         
+        </table>
+    </section>
+    
+    
+    <script type="text/javascript" src="js/main.js"></script>
+    
+</body>
+</html>

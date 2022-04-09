@@ -1,0 +1,86 @@
+/** PAGE **/
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    margin-left: 20px;
+}
+
+/** Remove up arrows from number input fields **/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+label {
+    font-size: 2rem;
+}
+
+#numOfPlayers {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 4rem;
+}
+
+
+/** TABLE **/
+
+table {
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 50px;
+}
+
+table input {
+    width: 104px;
+    height: 100%;
+    padding: 0;    
+    font-size: 4rem;
+    text-align: center;
+    margin: 0;
+}
+
+table span {
+    font-size: 1.5rem;
+    display: block;
+} 
+
+table td,
+table th {
+    border: 1px solid black;
+    min-width: 98px;
+    height: 98px;
+    padding: 0;
+    
+}
+
+th input {
+    font-size: 2rem;
+}
+
+tr th:first-child,
+tr th:first-child + th,
+tr td:first-child,
+tr td:first-child + td {
+    padding: 2px;
+}
+
+tr th:first-child + th,
+tr td:first-child + td {
+    font-size: 1.5rem;
+    width: 70px;
+}
