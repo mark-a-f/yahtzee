@@ -1,4 +1,5 @@
 // new class to hold player information
+// This class holds the information for their unique id, player name and all their scores
 class player {
     constructor(id, name, ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance, topScore) {
 
@@ -53,7 +54,11 @@ class player {
     }
 }
 
+//***************************************************************************/
+//***************************************************************************/
 // Dynamically create table columns based on number of players
+//***************************************************************************///***************************************************************************/
+
 document.querySelector('#createSheet').addEventListener('click', addPlayers);
 function addPlayers() {   
        
@@ -216,7 +221,7 @@ function addPlayers() {
 
             i++;
         }
-        // Run function to create player objects
+        // Create the player objects
         createPlayers(numOfPlayers);
 
     }
@@ -230,11 +235,11 @@ function resetSheet() {
     location.reload();
 }
 
+//***************************************************************************/
+//***************************************************************************/
+// Creation of player objects
 
-
-// Create player objects
-
-// Array to store each object of player
+// Array to store each player object
 let playersArray = [];
 
 function createPlayers(numOfPlayers) {        
@@ -265,9 +270,8 @@ function createPlayers(numOfPlayers) {
         id = `Player${i}`;
         name = `Player ${i}`;        
 
-        playersArray[i] = new player(id, name, onesScore, twosScore, threesScore, foursScore, fivesScore, sixesScore, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance);
-
-        //console.log(playersArray[i]);
+        // Create new player object
+        playersArray[i] = new player(id, name, onesScore, twosScore, threesScore, foursScore, fivesScore, sixesScore, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance);        
 
         i++;
     }
@@ -281,7 +285,7 @@ function createPlayers(numOfPlayers) {
 
 function updateScores(item) {
     
-    // item is the element
+    // item is the element where the score was entered
 
     // Find which player the entered score belongs to
     // Go through all other score elements associated with this player
@@ -305,8 +309,7 @@ function updateScores(item) {
 
     let playerOjbect = playersArray[playerNumber];
     console.log(playerOjbect);
-    
-    // 
+     
 
 }
 
@@ -339,63 +342,33 @@ function updateOnesScore(item) {
     updateUpperScores(playerObject);
 }
 
-function updateTwosScore(item) {   
-
-    // Pass item (HTML element) to fetchPlayerObject, recieve playerObject in return
-    let playerObject = fetchPlayerObject(item);
-
-    // Set ones score attribute in playerObject to the value of html element
-    playerObject.updateTwos = parseInt(item.value);  
-
-    // Run function to update the upperScore element
+function updateTwosScore(item) {       
+    let playerObject = fetchPlayerObject(item);    
+    playerObject.updateTwos = parseInt(item.value);      
     updateUpperScores(playerObject);
 }
 
-function updateThreesScore(item) {   
-
-    // Pass item (HTML element) to fetchPlayerObject, recieve playerObject in return
-    let playerObject = fetchPlayerObject(item);
-
-    // Set ones score attribute in playerObject to the value of html element
-    playerObject.updateThrees = parseInt(item.value); 
-    
-    // Run function to update the upperScore element
+function updateThreesScore(item) {
+    let playerObject = fetchPlayerObject(item);    
+    playerObject.updateThrees = parseInt(item.value);   
     updateUpperScores(playerObject);
 }
 
-function updateFoursScore(item) {   
-
-    // Pass item (HTML element) to fetchPlayerObject, recieve playerObject in return
+function updateFoursScore(item) {
     let playerObject = fetchPlayerObject(item);
-
-    // Set ones score attribute in playerObject to the value of html element
-    playerObject.updateFours = parseInt(item.value);  
-
-    // Run function to update the upperScore element
+    playerObject.updateFours = parseInt(item.value);
     updateUpperScores(playerObject);
 }
 
-function updateFivesScore(item) {   
-
-    // Pass item (HTML element) to fetchPlayerObject, recieve playerObject in return
+function updateFivesScore(item) {
     let playerObject = fetchPlayerObject(item);
-
-    // Set ones score attribute in playerObject to the value of html element
-    playerObject.updateFives = parseInt(item.value); 
-
-    // Run function to update the upperScore element
+    playerObject.updateFives = parseInt(item.value);
     updateUpperScores(playerObject);
 }
 
-function updateSixesScore(item) {   
-
-    // Pass item (HTML element) to fetchPlayerObject, recieve playerObject in return
+function updateSixesScore(item) {
     let playerObject = fetchPlayerObject(item);
-
-    // Set ones score attribute in playerObject to the value of html element
     playerObject.updateSixes = parseInt(item.value);
-    
-    // Run function to update the upperScore element
     updateUpperScores(playerObject);
 
     console.log(playerObject);
