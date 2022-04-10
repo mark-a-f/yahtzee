@@ -1,11 +1,18 @@
-/** PAGE **/
+/*****************/
+/** PAGE STYLES **/
+/*****************/
 
 html {
+    font-family: 'Roboto', sans-serif;
     font-size: 62.5%;
+    font-weight: 400;
 }
 
 body {
-    margin-left: 20px;
+    /* display: inline-block;
+    width: 100%; */
+    overflow-x: auto;
+    margin: 0;
 }
 
 /** Remove up arrows from number input fields **/
@@ -16,33 +23,113 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-h1 {
-    font-size: 5rem;
-}
-
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+h1 {
+    font-size: 5rem;
 }
 
 label {
     font-size: 2rem;
 }
 
-#numOfPlayers {
-    width: 50px;
-    height: 50px;
+button {
+    color: white;
+    border: none;
+    font-size: 2.5rem;
+    padding: 1rem 2rem;
+    box-shadow: inset 2px 2px 8px;
+    border-radius: 5px;
+    font-weight: 400;    
+}
+
+/*****************/
+/** HERO SECTION **/
+/*****************/
+
+.hero {       
+    max-width: 80rem;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    padding: 1rem;    
+}
+
+#resetBtn {
+    float: right;
+    background: #FF7B7B;    
+}
+
+#resetBtn:hover {
+    color: #FF7B7B;
+    background: #FFE4E4;
+    box-shadow: none;
+}
+
+.hero img {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.inputWrapper {
+    width: 50%;
+    margin: 1rem auto;    
     text-align: center;
-    font-size: 4rem;
+}
+
+.hero label {       
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.hero input {
+    color: #35B897;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 1rem;
+    font-size: 2rem;
+    border: 1px solid #DBE3E0;
+    border-radius: 5px;
+    text-align: center;    
+}
+
+#startBtn {
+    background: #4193B5;
+    display: block;
+    margin: 0 auto;
+}
+
+#startBtn:hover {
+    background: #D9E9F0;
+    color: #4193B5;
+    box-shadow: none;
 }
 
 
+
+
+
+/*****************/
 /** TABLE **/
+/*****************/
+
+.table-container {
+    background-image: url(/assets/img/background_dark.png);       
+    background-repeat: repeat;
+    background-size: 75%;          
+    display: inline-block;    
+    overflow-x: scroll;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1.5rem;    
+}
 
 table {
+    margin: 0 auto;       
     font-size: 2rem;
-    text-align: center;
-    margin-top: 50px;
+    text-align: center;        
 }
 
 table input {
@@ -65,6 +152,7 @@ table th {
     min-width: 98px;
     height: 98px;
     padding: 0;
+    background: white;
     
 }
 

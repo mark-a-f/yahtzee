@@ -76,15 +76,15 @@ class player {
 // DYNAMIC CREATION OF SCORE TABLE
 //***************************************************************************///***************************************************************************/
 
-document.querySelector('#createSheet').addEventListener('click', addPlayers);
+document.querySelector('#startBtn').addEventListener('click', addPlayers);
 function addPlayers() {   
        
     // variable to store input value of number of players
     let numOfPlayers = document.querySelector('#numOfPlayers').value
     
     // Data validation to prevent empty string or a non-number being used
-    if (numOfPlayers == '' || isNaN(numOfPlayers)){
-        alert('Please enter a number.')        
+    if (numOfPlayers == '' || isNaN(numOfPlayers) || numOfPlayers > 8){
+        alert('Please enter a number. Maximum 8 players.')        
         return null;
     } else {
         let elementToAppend;
@@ -474,7 +474,8 @@ function updateTopTotalScore(playerObject, total, bonus) {
 // PAGE FUNCTIONS
 //****************************************************** */
 // Page refresh when Rest button pressed
-document.querySelector('#resetSheet').addEventListener('click', resetSheet);
+document.querySelector('#resetBtn').addEventListener('click', resetSheet);
 function resetSheet() {
     location.reload();
 }
+
