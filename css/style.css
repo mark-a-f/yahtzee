@@ -32,6 +32,10 @@ h1 {
     font-size: 5rem;
 }
 
+h2 {
+    font-size: 3rem;
+}
+
 h5 {
     font-size: 3rem;
     margin: 0;
@@ -130,13 +134,15 @@ button {
 
 .landing-info {
     width: 75%;
-    margin: 0 auto;    
-    justify-content: center;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 1.5rem 5rem;
+    display: block;
 }
 
-.landing-info h2,
-.landing-info p {
-    display: block;
+.landing-info h2 {
+    margin-top: 0;
 }
 
 .landing-info p {

@@ -9,7 +9,7 @@
 // new class to hold player information
 // This class holds the information for their unique id, player name and all their scores
 class player {
-    constructor(id, name, ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance, yahtzee, topScore, topTotalScore, bonus, bottomScore, grandTotal) {
+    constructor(id, name, ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance, yahtzee, topScore, topTotalScore, bonus, bottomScore, grandTotal, runningTotal) {
 
         this.id = id;
         this.name = name;
@@ -31,6 +31,7 @@ class player {
         this.bonus = bonus;
         this.bottomScore = bottomScore;
         this.grandTotal = grandTotal;
+        this.runningTotal = runningTotal;
     }
 
     // Setters
@@ -108,6 +109,10 @@ class player {
 
     set updateGrandTotal(value) {
         this.grandTotal = value;
+    }
+
+    set updateRunningTotal(value) {
+        this.runningTotal = value;
     }
 }
 
@@ -294,11 +299,21 @@ function addPlayers() {
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
+            // Running total score row
+            elementToAppend = document.getElementById('row-runningTotal');
+            elementToCreate = document.createElement('td');
+            htmlToInsert = `<td><span id="RunningTotalPlayer${i}" class="player${i}"></span></td>`;
+            elementToCreate.innerHTML = htmlToInsert;
+            elementToAppend.appendChild(elementToCreate);
+
             i++;
         }
         // Create the player objects
         createPlayers(numOfPlayers);
     }
+
+    //hide info pannel
+    hideInfoPanel()
 
     //unhide reset button, table and play again button
     document.querySelector('.table-container').style.display = "inline-block";
@@ -586,12 +601,42 @@ function updateGrandTotalScore(playerObject) {
     }`).innerHTML = playerObject.grandTotal;
 }
 
+// Save the running total score
+document.getElementById('playAgainBtn').addEventListener('click', saveRunningTotal);
+function saveRunningTotal() {
+
+    // loop through each entry in PlayersArray
+    let i = 1;
+    while (i < playersArray.length) {
+        let playerObject = playersArray[i];
+        let runningTotal = playerObject.runningTotal;
+        let currentTotal = playerObject.grandTotal;
+
+        if(typeof(runningTotal) == "undefined") {
+            runningTotal = 0;
+            playerObject.updateRunningTotal = runningTotal + currentTotal;
+            // Set html element value to the total
+            document.getElementById(`RunningTotal${playerObject.id}`).innerHTML = playerObject.runningTotal;
+        } else {
+            playerObject.updateRunningTotal = runningTotal + currentTotal;
+            document.getElementById(`RunningTotal${playerObject.id}`).innerHTML = playerObject.runningTotal;
+        }
+        i++;
+    }
+}
+
+// // Update the running total score
+// function updateRunningTotal(playerObject) {
+
+// }
+
 
 // ***************************************************** */
 // PAGE FUNCTIONS
 // ****************************************************** */
-// Page refresh when Rest button pressed
+// Page refresh when reset buttons are pressed
 document.querySelector('#resetBtn').addEventListener('click', resetSheet);
+document.querySelector('#resetBtnBottom').addEventListener('click', resetSheet);
 function resetSheet() {
     document.getElementById('numOfPlayers').value = "";
     location.reload();
@@ -710,3 +755,18 @@ document.addEventListener("wheel", function (event) {
         document.activeElement.blur();
     }
 });
+
+// Show landing information panel
+document.getElementById('resetBtn').addEventListener('click', showInfoPanel);
+document.getElementById('resetBtnBottom').addEventListener('click', showInfoPanel);
+
+function showInfoPanel () {
+    // Select element and set it's display value to "block"
+    document.getElementById('landing-info').style.display = "block";
+}
+
+// Hide landing information panel
+function hideInfoPanel() {
+        // Select element and set it's display value to "none"
+    document.getElementById('landing-info').style.display = "none";
+}
