@@ -8,7 +8,10 @@ html {
     font-weight: 400;
 }
 
-body {       
+body {
+    background-image: url(/assets/img/background_dark.png);       
+    /* background-repeat: repeat;
+    background-size: 75%;        */
     margin: 0;         
 }
 
@@ -94,26 +97,50 @@ button {
     text-align: center;    
 }
 
-#startBtn {
+#startBtn,
+#playAgainBtn {
     background: #4193B5;
     margin-right: 0.5rem;    
 }
 
-#startBtn:hover {
+#startBtn:hover,
+#playAgainBtn:hover {
     background: #D9E9F0;
     color: #4193B5;
     box-shadow: none;
 }
 
-#resetBtn {    
+#resetBtn,
+#resetBtnBottom {    
     background: #FF7B7B;
-    margin-left: 0.5rem;    
+    margin-left: 0.5rem;
+    display: none;    
 }
 
-#resetBtn:hover {
+#resetBtn:hover,
+#resetBtnBottom:hover {
     color: #FF7B7B;
     background: #FFE4E4;
     box-shadow: none;
+}
+
+/*****************/
+/** LANDING PAGE INFORMATION **/
+/*****************/
+
+.landing-info {
+    width: 75%;
+    margin: 0 auto;    
+    justify-content: center;
+}
+
+.landing-info h2,
+.landing-info p {
+    display: block;
+}
+
+.landing-info p {
+    width: 50%;
 }
 
 
@@ -122,15 +149,16 @@ button {
 /*****************/
 
 .table-container {
-    background-image: url(/assets/img/background_dark.png);       
+    /* background-image: url(/assets/img/background_dark.png);       
     background-repeat: repeat;
-    background-size: 75%;          
-    display: inline-block;        
+    background-size: 75%; */
+    display: none;
     overflow-x: auto;    
     width: 100%;
     box-sizing: border-box;
     padding: 1.5rem;
-    position: relative;      
+    position: relative;
+    min-height: 800px;      
 }
 
 table {
@@ -138,7 +166,7 @@ table {
     font-size: 2rem;
     text-align: center; 
     border-spacing: 0;
-    border-collapse: separate;
+    border-collapse: separate;    
 }
 
 table input {
@@ -278,6 +306,19 @@ th input {
 
 .table-container table tr th:first-child {
     z-index: 100;
+}
+
+
+/** PLAY AGAIN BUTTON **/
+
+.lower-btn-surround {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1.5rem;
+}
+
+#playAgainBtn {
+    display: none;
 }
 
 

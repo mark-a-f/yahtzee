@@ -117,7 +117,9 @@ class player {
 // ***************************************************************************///***************************************************************************/
 
 document.querySelector('#startBtn').addEventListener('click', addPlayers);
-function addPlayers() { // variable to store input value of number of players
+function addPlayers() { 
+
+    // variable to store input value of number of players
     let numOfPlayers = document.querySelector('#numOfPlayers').value
 
     // Data validation to prevent empty string or a non-number being used
@@ -297,6 +299,12 @@ function addPlayers() { // variable to store input value of number of players
         // Create the player objects
         createPlayers(numOfPlayers);
     }
+
+    //unhide reset button, table and play again button
+    document.querySelector('.table-container').style.display = "inline-block";
+    document.querySelector('#resetBtn').style.display = "inline-block";
+    document.querySelector('#playAgainBtn').style.display =  "inline-block";
+    document.querySelector('#resetBtnBottom').style.display = "inline-block";
 }
 
 // ***************************************************************************/
@@ -585,13 +593,15 @@ function updateGrandTotalScore(playerObject) {
 // Page refresh when Rest button pressed
 document.querySelector('#resetBtn').addEventListener('click', resetSheet);
 function resetSheet() {
+    document.getElementById('numOfPlayers').value = "";
     location.reload();
 }
 
 // Reset score sheet but keep names when Play Again button pressed
 document.querySelector('#playAgainBtn').addEventListener('click', playAgain);
 function playAgain() {
-    resetPlayerScoreAttributes();    
+    resetPlayerScoreAttributes();
+    window.location.href = '#table-container';   
 }
 
 function resetPlayerScoreAttributes() {
@@ -631,7 +641,6 @@ function resetPlayerScoreAttributes() {
 function resetPlayerScoreCardHTML(playerObject) {
     // Accepts playerObject object
     // Sets all HTML element scores associated with this player to blank
-
     document.getElementById(`scoreOnes${
         playerObject.id
     }`).value = '';
