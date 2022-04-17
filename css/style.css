@@ -55,7 +55,7 @@ button {
 }
 
 /*****************/
-/** HERO SECTION **/
+/** TOP SECTION **/
 /*****************/
 
 .hero {       
@@ -65,31 +65,22 @@ button {
     padding: 1rem;    
 }
 
-#resetBtn {
-    float: right;
-    background: #FF7B7B;    
-}
-
-#resetBtn:hover {
-    color: #FF7B7B;
-    background: #FFE4E4;
-    box-shadow: none;
-}
-
 .hero img {
     width: 100%;
     margin: 1rem 0;
 }
 
 .inputWrapper {
-    width: 50%;
-    margin: 1rem auto;    
-    text-align: center;
+    display: flex;
+    width: 90%;
+    margin: 1rem auto;  
+    justify-content: center;
 }
 
 .hero label {       
     font-size: 2rem;
     margin-right: 1rem;
+    margin-top: 0.5rem;
 }
 
 .hero input {
@@ -105,13 +96,23 @@ button {
 
 #startBtn {
     background: #4193B5;
-    display: block;
-    margin: 0 auto;
+    margin-right: 0.5rem;    
 }
 
 #startBtn:hover {
     background: #D9E9F0;
     color: #4193B5;
+    box-shadow: none;
+}
+
+#resetBtn {    
+    background: #FF7B7B;
+    margin-left: 0.5rem;    
+}
+
+#resetBtn:hover {
+    color: #FF7B7B;
+    background: #FFE4E4;
     box-shadow: none;
 }
 
