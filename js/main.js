@@ -3,7 +3,7 @@
 // 2. line 66 - Dynamic Creation of Score Table
 // 3. line 242 - Page reset button (maybe move this to a seperate section with smaller page functions)
 // 4. line 249 - Creation of Player Object
-// 5. 
+// 5.
 
 
 // new class to hold player information
@@ -18,7 +18,7 @@ class player {
         this.threes = threes;
         this.fours = fours;
         this.fives = fives;
-        this.sixes = sixes;        
+        this.sixes = sixes;
         this.threeOfKind = threeOfKind;
         this.fourOfKind = fourOfKind;
         this.fullHouse = fullHouse;
@@ -30,7 +30,7 @@ class player {
         this.topTotalScore = topTotalScore;
         this.bonus = bonus;
         this.bottomScore = bottomScore;
-        this.grandTotal = grandTotal;               
+        this.grandTotal = grandTotal;
     }
 
     // Setters
@@ -111,29 +111,27 @@ class player {
     }
 }
 
-//***************************************************************************/
-//***************************************************************************/
+// ***************************************************************************/
+// ***************************************************************************/
 // DYNAMIC CREATION OF SCORE TABLE
-//***************************************************************************///***************************************************************************/
+// ***************************************************************************///***************************************************************************/
 
 document.querySelector('#startBtn').addEventListener('click', addPlayers);
-function addPlayers() {   
-       
-    // variable to store input value of number of players
+function addPlayers() { // variable to store input value of number of players
     let numOfPlayers = document.querySelector('#numOfPlayers').value
-    
+
     // Data validation to prevent empty string or a non-number being used
-    if (numOfPlayers == '' || isNaN(numOfPlayers) || numOfPlayers > 8){
-        alert('Please enter a number. Maximum 8 players.')        
+    if (numOfPlayers == '' || isNaN(numOfPlayers) || numOfPlayers > 8) {
+        alert('Please enter a number. Maximum 8 players.')
         return null;
     } else {
         let elementToAppend;
         let elementToCreate;
         let htmlToInsert;
         let i = 1;
-        while (i <= numOfPlayers){            
+        while (i <= numOfPlayers) {
             // For each player
-            // Select the table row, append the correct child to it            
+            // Select the table row, append the correct child to it
 
             // Top Row
             // Select the parent row by it's id
@@ -141,7 +139,7 @@ function addPlayers() {
             // Create 'th' element
             elementToCreate = document.createElement('th');
             // html that changes based on player number (i)
-            htmlToInsert = `<th><input type="text" placeholder="Player ${i}" id="player${i}" class="player${i}" onblur="updateScores(this)"></th>`;
+            htmlToInsert = `<th><input type="text" placeholder="Player ${i}" id="player${i}" class="player${i}" onblur="updateName(this)"></th>`;
             // set this html to the inner html of the element that is to be created
             elementToCreate.innerHTML = htmlToInsert;
             // add this element child to the parent
@@ -294,42 +292,37 @@ function addPlayers() {
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
-            // increase iterator
             i++;
         }
         // Create the player objects
         createPlayers(numOfPlayers);
-
     }
-
 }
 
-//***************************************************************************/
-//***************************************************************************/
+// ***************************************************************************/
+// ***************************************************************************/
 // CREATION OF PLAYER OBJECTS
-//***************************************************************************/
-//***************************************************************************/
+// ***************************************************************************/
+// ***************************************************************************/
 
 // Array to store the player objects
 let playersArray = [];
 
 function createPlayers(numOfPlayers) {
-    // Function accepts a number, creates a playerObject for each player using default values for scores
-    // Places this playerObject into playersArray        
-    
-    
-     let name;        
+    // Function accepts a number, creates a playerObject for each player
+    // Places this playerObject into playersArray
+
+    let name;
 
     // set iteration variable
     let i = 1;
 
-    while (i <= numOfPlayers) {
-        // This ID will match with the element class of every element associated with this player
+    while (i <= numOfPlayers) { // This ID will match with the element class of every element associated with this player
         id = `Player${i}`;
-        name = `Player ${i}`;        
+        name = `Player ${i}`;
 
         // Create new player object
-        playersArray[i] = new player(id, name);        
+        playersArray[i] = new player(id, name);
 
         // increase iterator
         i++;
@@ -337,78 +330,45 @@ function createPlayers(numOfPlayers) {
 }
 
 
-// When a score is entered, that score needs to go into the correct part of the Player object
-// Event listener on the element
-// Use the element's class name to link to the correct player (element class name + player ID will match)
-//
-
-// NOT USING THIS RIGHT NOW - POTENTIAL FOR REMOVAL
-function updateScores(item) {
-    
-    // item is the element where the score was entered
-
-    // Find which player the entered score belongs to
-    // Go through all other score elements associated with this player
-    // Update their scores
-
-    // Store the class name and ID of the element that caused the function to trigger
-    // This can be used to associate the score to the correct player    
-
-    let elementClassName = item.className;
-    let elementID = item.id;
-
-    console.log('ELEMENT CLASS NAME = ' + elementClassName);
-    console.log('ELEMENT ID = ' + elementID);
-
-    // elementClassName = player1
-    // elementID = scoreOnesPlayer1
-    
-    // playerNumber holds the player's number, this matches it's position in playersArray
-    let playerNumber = elementClassName.substr(6);
-    console.log('PlayerNumber = ' + playerNumber);
-
-    let playerOjbect = playersArray[playerNumber];
-    console.log(playerOjbect);  
-}
+// **************************************************************
+// **************************************************************
+// FUNCTIONS TO UPDATE SCORES & PLAYER OBJECT ATTRIBUTES
+// These are triggered by oninput/onblur attribute on the element where the score is entered
 
 // Function accepts a HTML element, returns the playerObject associated with this element
 function fetchPlayerObject(item) {
-
     let elementClassName = item.className;
     // playerNumber holds the player's number, this matches it's position in playersArray
     let playerNumber = elementClassName.substr(6);
     // Choose correct player in player array
     let playerObject = playersArray[playerNumber];
-
     return playerObject;
 }
 
-//**************************************************************
-//**************************************************************
-// FUNCTIONS TO UPDATE SCORES
-// These are triggered by onblur attribute on the element where the score is entered
-
-function updateOnesScore(item) {   
-
-    // Pass item (HTML element) to fetchPlayerObject, recieve playerObject in return
+// Update Player Name
+function updateName(item) {
     let playerObject = fetchPlayerObject(item);
+    playerObject.updateName = item.value;    
+}
 
+
+function updateOnesScore(item) { // Pass item (HTML element) to fetchPlayerObject, recieve playerObject in return
+    let playerObject = fetchPlayerObject(item);
     // Set ones score attribute in playerObject to the value of html element
-    playerObject.updateOnes = parseInt(item.value); 
-    
+    playerObject.updateOnes = parseInt(item.value);
     // Run function to update the upperScore element
     updateUpperScores(playerObject);
 }
 
-function updateTwosScore(item) {       
-    let playerObject = fetchPlayerObject(item);    
-    playerObject.updateTwos = parseInt(item.value);      
+function updateTwosScore(item) {
+    let playerObject = fetchPlayerObject(item);
+    playerObject.updateTwos = parseInt(item.value);
     updateUpperScores(playerObject);
 }
 
 function updateThreesScore(item) {
-    let playerObject = fetchPlayerObject(item);    
-    playerObject.updateThrees = parseInt(item.value);   
+    let playerObject = fetchPlayerObject(item);
+    playerObject.updateThrees = parseInt(item.value);
     updateUpperScores(playerObject);
 }
 
@@ -427,52 +387,52 @@ function updateFivesScore(item) {
 function updateSixesScore(item) {
     let playerObject = fetchPlayerObject(item);
     playerObject.updateSixes = parseInt(item.value);
-    updateUpperScores(playerObject);   
+    updateUpperScores(playerObject);
 }
 
 function updateThreeOfKindScore(item) {
     let playerObject = fetchPlayerObject(item);
     playerObject.updateThreeOfKind = parseInt(item.value);
-    updateBottomScores(playerObject);   
+    updateBottomScores(playerObject);
 }
 
 function updateFourOfKindScore(item) {
     let playerObject = fetchPlayerObject(item);
     playerObject.updateFourOfKind = parseInt(item.value);
-    updateBottomScores(playerObject);   
+    updateBottomScores(playerObject);
 }
 
 function updateFullHouseScore(item) {
     let playerObject = fetchPlayerObject(item);
     playerObject.updateFullHouse = parseInt(item.value);
-    updateBottomScores(playerObject);   
+    updateBottomScores(playerObject);
 }
 
 function updateSmallStraightScore(item) {
     let playerObject = fetchPlayerObject(item);
     playerObject.updateSmallStraight = parseInt(item.value);
-    updateBottomScores(playerObject);   
+    updateBottomScores(playerObject);
 }
 
 function updateLargeStraightScore(item) {
     let playerObject = fetchPlayerObject(item);
     playerObject.updateLargeStraight = parseInt(item.value);
-    updateBottomScores(playerObject);   
+    updateBottomScores(playerObject);
 }
 
 function updateChanceScore(item) {
     let playerObject = fetchPlayerObject(item);
     playerObject.updateChance = parseInt(item.value);
-    updateBottomScores(playerObject);   
+    updateBottomScores(playerObject);
 }
 
 function updateYahtzeeScore(item) {
     let playerObject = fetchPlayerObject(item);
     playerObject.updateYahtzee = parseInt(item.value);
-    updateBottomScores(playerObject);   
+    updateBottomScores(playerObject);
 }
 
-//********************************************************************/
+// ********************************************************************/
 // AUTOMATIC SCORE UPDATE FUNCTIONS
 // These are for Upper Score, Bonus Score, Total of upper section
 
@@ -481,7 +441,7 @@ function updateUpperScores(playerObject) {
     // Accepts playerObject, totals the values of the top scores, inserts this value into the Total Score field in the top section of the score sheet
 
     // Generate array of each attribute in playerObject to then iterate over
-    let playerObjectArray = Object.values(playerObject);    
+    let playerObjectArray = Object.values(playerObject);
 
     let total = 0;
     // i starts at '2' as this is the position in playerObjectArray of the first score
@@ -489,24 +449,24 @@ function updateUpperScores(playerObject) {
 
     // loop through up to and including the final score (score for sixes = position 7) in playerObject
     while (i <= 7) {
-        if (typeof(playerObjectArray[i]) == "undefined" || isNaN(playerObjectArray[i]) ) {
+        if (typeof(playerObjectArray[i]) == "undefined" || isNaN(playerObjectArray[i])) {
             total += 0;
         } else {
             total += playerObjectArray[i];
-        }
-        
-        i++;
+        } i++;
     }
 
     // set TopScore attribute of the playerObject
-    playerObject.updateTopScore = total;      
+    playerObject.updateTopScore = total;
 
     // set value of topScore element
-    document.getElementById(`topScore${playerObject.id}`).innerHTML = total;
+    document.getElementById(`topScore${
+        playerObject.id
+    }`).innerHTML = total;
 
     // Score check & update functions to run
     checkBonus(playerObject, total);
-    updateTopTotalScore(playerObject, total, playerObject.bonus); 
+    updateTopTotalScore(playerObject, total, playerObject.bonus);
     // Update Grand Total
     updateGrandTotalScore(playerObject)
 
@@ -519,20 +479,26 @@ function checkBonus(playerObject, total) {
     // If total score is 62 or less, set Bonus attribute to zero and update HTML with score
 
     // if total greater than 62, the Bonus is active (extra 35 points for the top section)
-    if (total > 62) {
-        // set bonus attribute to 35 points
+    if (total > 62) { // set bonus attribute to 35 points
         playerObject.updateBonus = 35;
         // set value of Bonus box on sheet
-        document.getElementById(`bonusScore${playerObject.id}`).innerHTML = 35;
+        document.getElementById(`bonusScore${
+            playerObject.id
+        }`).innerHTML = 35;
         // change element text colour
-        document.getElementById(`bonusScore${playerObject.id}`).style.color = "#35B897";
-    } else {
-        // set bonus attribute to 0
+        document.getElementById(`bonusScore${
+            playerObject.id
+        }`).style.color = "#35B897";
+    } else { // set bonus attribute to 0
         playerObject.updateBonus = 0;
         // set value of Bonus box on sheet
-        document.getElementById(`bonusScore${playerObject.id}`).innerHTML = '---';
+        document.getElementById(`bonusScore${
+            playerObject.id
+        }`).innerHTML = '---';
         // change element text colour
-        document.getElementById(`bonusScore${playerObject.id}`).style.color = "#FF7B7B";
+        document.getElementById(`bonusScore${
+            playerObject.id
+        }`).style.color = "#FF7B7B";
     }
 }
 
@@ -541,10 +507,14 @@ function updateTopTotalScore(playerObject, total, bonus) {
     // Adds total and bonus together
     // Sets TopTotalScore attribute of player object
     // Sets HTML of table element to display TopTotalScore
-    
+
     playerObject.updateTopTotalScore = total + bonus;
-    document.getElementById(`totalTopScore${playerObject.id}`).innerHTML = playerObject.topTotalScore;
-    document.getElementById(`bottomTopScore${playerObject.id}`).innerHTML = playerObject.topTotalScore;
+    document.getElementById(`totalTopScore${
+        playerObject.id
+    }`).innerHTML = playerObject.topTotalScore;
+    document.getElementById(`bottomTopScore${
+        playerObject.id
+    }`).innerHTML = playerObject.topTotalScore;
 }
 
 // CALCULATE AND UPDATE BOTTOM TOTAL SCORE
@@ -552,7 +522,7 @@ function updateBottomScores(playerObject) {
     // Accepts playerObject, totals the values of the bottom scores, inserts this value into the Total of lower section field in the bottom section of the score sheet
 
     // Generate array of each attribute in playerObject to then iterate over
-    let playerObjectArray = Object.values(playerObject);    
+    let playerObjectArray = Object.values(playerObject);
 
     let total = 0;
     // i starts at '8' as this is the position in playerObjectArray of the first score of the lower section
@@ -560,19 +530,20 @@ function updateBottomScores(playerObject) {
 
     // loop through up to and including the final score (score for sixes = position 14) in playerObject
     while (i <= 14) {
-        if (typeof(playerObjectArray[i]) == "undefined" || isNaN(playerObjectArray[i]) ) {
+        if (typeof(playerObjectArray[i]) == "undefined" || isNaN(playerObjectArray[i])) {
             total += 0;
         } else {
             total += playerObjectArray[i];
-        }        
-        i++;
+        } i++;
     }
 
     // set BottomScore attribute of the playerObject
-    playerObject.updateBottomScore = total;      
+    playerObject.updateBottomScore = total;
 
     // set value of totalLower element
-    document.getElementById(`totalLower${playerObject.id}`).innerHTML = total; 
+    document.getElementById(`totalLower${
+        playerObject.id
+    }`).innerHTML = playerObject.bottomScore;
 
     // Update Grand Total
     updateGrandTotalScore(playerObject)
@@ -602,24 +573,131 @@ function updateGrandTotalScore(playerObject) {
     }
 
     // Set html of Grand Total element
-    document.getElementById(`GrandTotal${playerObject.id}`).innerHTML = playerObject.grandTotal;
+    document.getElementById(`GrandTotal${
+        playerObject.id
+    }`).innerHTML = playerObject.grandTotal;
 }
 
 
-
-
-//***************************************************** */
+// ***************************************************** */
 // PAGE FUNCTIONS
-//****************************************************** */
+// ****************************************************** */
 // Page refresh when Rest button pressed
 document.querySelector('#resetBtn').addEventListener('click', resetSheet);
 function resetSheet() {
     location.reload();
 }
 
+// Reset score sheet but keep names when Play Again button pressed
+document.querySelector('#playAgainBtn').addEventListener('click', playAgain);
+function playAgain() {
+    resetPlayerScoreAttributes();    
+}
+
+function resetPlayerScoreAttributes() {
+    // Reset all scores to zero, but keep the playerObject.name attribute the same
+    // Cycle through playersArray
+    // Cycle through each attribute of object, set to zero
+    let i = 1;
+    while (i < playersArray.length) {
+        // Select playerObject
+        let currentPlayer = playersArray[i]
+        // Reset score attributes to 0
+        currentPlayer.updateOnes = 0;
+        currentPlayer.updateTwos = 0;
+        currentPlayer.updateThrees = 0;
+        currentPlayer.updateFours = 0;
+        currentPlayer.updateFives = 0;
+        currentPlayer.updateSixes = 0;
+        currentPlayer.updateBonus = 0;
+        currentPlayer.updateTopScore = 0;
+        currentPlayer.updateTopTotalScore = 0;
+        currentPlayer.updateThreeOfKind = 0;
+        currentPlayer.updateFourOfKind = 0;
+        currentPlayer.updateFullHouse = 0;
+        currentPlayer.updateSmallStraight = 0;
+        currentPlayer.updateLargeStraight = 0;
+        currentPlayer.updateChance = 0;
+        currentPlayer.updateYahtzee = 0;
+        currentPlayer.updateBottomScore = 0;
+        currentPlayer.updateGrandTotal = 0;      
+        
+        resetPlayerScoreCardHTML(currentPlayer);
+
+        i ++;
+    }
+}
+
+function resetPlayerScoreCardHTML(playerObject) {
+    // Accepts playerObject object
+    // Sets all HTML element scores associated with this player to blank
+
+    document.getElementById(`scoreOnes${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`scoreTwos${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`scoreThrees${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`scoreFours${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`scoreFives${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`scoreSixes${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`topScore${
+        playerObject.id
+    }`).innerHTML = '';
+    document.getElementById(`bonusScore${
+        playerObject.id
+    }`).innerHTML = '---';
+    // change element text colour - unique to bonusScore element
+    document.getElementById(`bonusScore${
+        playerObject.id
+    }`).style.color = "#FF7B7B";
+    document.getElementById(`totalTopScore${
+        playerObject.id
+    }`).innerHTML = '';
+    document.getElementById(`scoreThreeOfAKind${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`scoreFourOfAKind${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`scoreFullHouse${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`scoreSmallStraight${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`scoreLargeStraight${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`scoreYahtzee${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`scoreChance${
+        playerObject.id
+    }`).value = '';
+    document.getElementById(`totalLower${
+        playerObject.id
+    }`).innerHTML = '';
+    document.getElementById(`bottomTopScore${
+        playerObject.id
+    }`).innerHTML = '';
+    document.getElementById(`GrandTotal${
+        playerObject.id
+    }`).innerHTML = '';
+}
+
 // Disable mouse-scroll on number input fields
-document.addEventListener("wheel", function(event){
-    if(document.activeElement.type === "number"){
+document.addEventListener("wheel", function (event) {
+    if (document.activeElement.type === "number") {
         document.activeElement.blur();
     }
 });
