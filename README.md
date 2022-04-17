@@ -1,2 +1,2 @@
-# yahtzee
-Online score tracker for Yahtzee.
+# Yahtzee Online Score Card
+Online score card for Yahtzee.
