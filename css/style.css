@@ -8,11 +8,8 @@ html {
     font-weight: 400;
 }
 
-body {
-    /* display: inline-block;
-    width: 100%; */
-    overflow-x: auto;
-    margin: 0;
+body {       
+    margin: 0;         
 }
 
 /** Remove up arrows from number input fields **/
@@ -30,6 +27,17 @@ input[type=number] {
 
 h1 {
     font-size: 5rem;
+}
+
+h5 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+h6 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin: 0;
 }
 
 label {
@@ -90,7 +98,7 @@ button {
     height: 1.5rem;
     padding: 1rem;
     font-size: 2rem;
-    border: 1px solid #DBE3E0;
+    border: 1px solid black;
     border-radius: 5px;
     text-align: center;    
 }
@@ -108,9 +116,6 @@ button {
 }
 
 
-
-
-
 /*****************/
 /** TABLE **/
 /*****************/
@@ -119,56 +124,169 @@ button {
     background-image: url(/assets/img/background_dark.png);       
     background-repeat: repeat;
     background-size: 75%;          
-    display: inline-block;    
-    overflow-x: scroll;
+    display: inline-block;        
+    overflow-x: auto;    
     width: 100%;
     box-sizing: border-box;
-    padding: 1.5rem;    
+    padding: 1.5rem;
+    position: relative;      
 }
 
 table {
     margin: 0 auto;       
     font-size: 2rem;
-    text-align: center;        
+    text-align: center; 
+    border-spacing: 0;
+    border-collapse: separate;
 }
 
 table input {
-    width: 104px;
-    height: 100%;
-    padding: 0;    
-    font-size: 4rem;
-    text-align: center;
-    margin: 0;
+    width: 10rem;
+    height: 100%;    
+    font-size: 2rem;
+    text-align: center;    
+    border: none;
+    background: none;
 }
 
-table span {
-    font-size: 1.5rem;
+table input:focus {
+    background: #DBE3E0;
+}
+
+table div span {
+    font-size: 1.1rem;
     display: block;
+    margin-top: 0.5rem;
 } 
+table tr {
+    height: 50px;
+}
 
 table td,
-table th {
-    border: 1px solid black;
-    min-width: 98px;
-    height: 98px;
-    padding: 0;
+table th {    
+    box-sizing: border-box; 
+    height: 100%;
     background: white;
-    
+    font-weight: 400;
+    font-size: 2rem;    
+}
+
+/** Cell Borders **/
+
+table th {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+table td {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+table th:first-child,
+table td:first-child {
+    border-left: 1px solid black;
+}
+
+table tr th:first-of-type,
+table tr td:first-of-type {
+    min-width: 21rem;
+    padding: 0.5rem 0rem 0.5rem 1rem;
+    text-align: left;
+}
+
+table tr td:first-of-type span {
+    font-size: 1.1rem;
 }
 
 th input {
     font-size: 2rem;
 }
 
-tr th:first-child,
-tr th:first-child + th,
-tr td:first-child,
-tr td:first-child + td {
-    padding: 2px;
+.info-field {    
+    align-items: center;   
 }
 
-tr th:first-child + th,
-tr td:first-child + td {
-    font-size: 1.5rem;
-    width: 70px;
+.info-field div {
+    height: 100%;    
+}
+
+.info-text {   
+    float: left;    
+}
+
+.info-field img {
+    float: right;        
+    width: 4rem;
+    margin: 0 1rem;
+}
+
+/** Bonus row custom colour **/
+#row9 td + td {
+    color: #FF7B7B;
+}
+
+/** Totals custom color **/
+#row8 td + td,
+#row10 td + td,
+#row18 td + td,
+#row19 td + td,
+#row20 td + td {
+    color: #35B897;
+}
+
+/** Grand total row **/
+#row20 td +td {
+    font-size: 3rem;
+}
+
+/** Upper & Lower Section Seperator **/
+.table-seperator td {
+    color: white;
+    background: #35B897;
+    height: 3rem;
+    border-right: none;
+    border-left: none;
+}
+
+.table-seperator td:first-of-type {
+    border-left: 1px solid black;
+}
+
+.table-seperator td:last-of-type {
+    border-right: 1px solid black;
+}
+
+/** Stick the first column so it is always visible **/
+
+.table-container table td:first-child,
+.table-container table th:first-child {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;    
+}
+
+/* * Stick header row so it is always visible **/
+.table-container thead {
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 99;
+    top: 0;
+}
+
+.table-container table tr th:first-child {
+    z-index: 100;
+}
+
+
+/** MEDIA QUERIES **/
+
+@media screen and (max-width: 500px) {
+
+    .table-container {
+        padding-left: 0;
+        padding-top: 0;
+        max-height: 500px;
+    }
 }

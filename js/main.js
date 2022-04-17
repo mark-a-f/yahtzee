@@ -5,10 +5,11 @@
 // 4. line 249 - Creation of Player Object
 // 5. 
 
+
 // new class to hold player information
 // This class holds the information for their unique id, player name and all their scores
 class player {
-    constructor(id, name, ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance, topScore, topTotalScore, bonus) {
+    constructor(id, name, ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance, yahtzee, topScore, topTotalScore, bonus, bottomScore, grandTotal) {
 
         this.id = id;
         this.name = name;
@@ -24,9 +25,12 @@ class player {
         this.smallStraight = smallStraight;
         this.largeStraight = largeStraight;
         this.chance = chance;
+        this.yahtzee = yahtzee;
         this.topScore = topScore;
         this.topTotalScore = topTotalScore;
-        this.bonus = bonus;               
+        this.bonus = bonus;
+        this.bottomScore = bottomScore;
+        this.grandTotal = grandTotal;               
     }
 
     // Setters
@@ -69,6 +73,42 @@ class player {
     set updateTopTotalScore(value) {
         this.topTotalScore = value;
     }
+
+    set updateThreeOfKind(value) {
+        this.threeOfKind = value;
+    }
+
+    set updateFourOfKind(value) {
+        this.fourOfKind = value;
+    }
+
+    set updateFullHouse(value) {
+        this.fullHouse = value;
+    }
+
+    set updateSmallStraight(value) {
+        this.smallStraight = value;
+    }
+
+    set updateLargeStraight(value) {
+        this.largeStraight = value;
+    }
+
+    set updateChance(value) {
+        this.chance = value;
+    }
+
+    set updateYahtzee(value) {
+        this.yahtzee = value;
+    }
+
+    set updateBottomScore(value) {
+        this.bottomScore = value;
+    }
+
+    set updateGrandTotal(value) {
+        this.grandTotal = value;
+    }
 }
 
 //***************************************************************************/
@@ -105,6 +145,13 @@ function addPlayers() {
             // set this html to the inner html of the element that is to be created
             elementToCreate.innerHTML = htmlToInsert;
             // add this element child to the parent
+            elementToAppend.appendChild(elementToCreate);
+
+            // Upper Section seperator
+            elementToAppend = document.getElementById('table-seperator-top');
+            elementToCreate = document.createElement('td');
+            htmlToInsert = `<td></td>`;
+            elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // Ones scores row
@@ -159,7 +206,7 @@ function addPlayers() {
             // Top Bonus score row
             elementToAppend = document.getElementById('row9');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><span id="bonusScorePlayer${i}" class="player${i}"></span></td>`;
+            htmlToInsert = `<td><span id="bonusScorePlayer${i}" class="player${i}">---</span></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
@@ -170,52 +217,59 @@ function addPlayers() {
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
+            // Upper Section seperator
+            elementToAppend = document.getElementById('table-seperator-bot');
+            elementToCreate = document.createElement('td');
+            htmlToInsert = `<td></td>`;
+            elementToCreate.innerHTML = htmlToInsert;
+            elementToAppend.appendChild(elementToCreate);
+
             // 3 of a kind score row
             elementToAppend = document.getElementById('row11');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="number" id="scoreThreeOfAKindPlayer${i}" class="player${i}"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreThreeOfAKindPlayer${i}" class="player${i}" oninput="updateThreeOfKindScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // 4 of a kind score row
             elementToAppend = document.getElementById('row12');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="number" id="scoreFourOfAKindPlayer${i}" class="player${i}"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreFourOfAKindPlayer${i}" class="player${i}" oninput="updateFourOfKindScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // Full house score row
             elementToAppend = document.getElementById('row13');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="checkbox" id="scoreFullHousePlayer${i}" class="player${i}"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreFullHousePlayer${i}" class="player${i}" oninput="updateFullHouseScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // Small straight score row
             elementToAppend = document.getElementById('row14');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="checkbox" id="scoreSmallStraightPlayer${i}" class="player${i}"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreSmallStraightPlayer${i}" class="player${i}" oninput="updateSmallStraightScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // Large straight score row
             elementToAppend = document.getElementById('row15');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="checkbox" id="scoreLargeStraightPlayer${i}" class="player${i}"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreLargeStraightPlayer${i}" class="player${i}" oninput="updateLargeStraightScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // Yahtzee score row
             elementToAppend = document.getElementById('row16');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="checkbox" id="scoreYahtzeePlayer${i}" class="player${i}"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreYahtzeePlayer${i}" class="player${i}"  oninput="updateYahtzeeScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
             // Chance score row
             elementToAppend = document.getElementById('row17');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td><input type="number" id="scoreChancePlayer${i}" class="player${i}"></td>`;
+            htmlToInsert = `<td><input type="number" id="scoreChancePlayer${i}" class="player${i}" oninput="updateChanceScore(this)"></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
@@ -229,7 +283,7 @@ function addPlayers() {
             // Total of upper section scores
             elementToAppend = document.getElementById('row19');
             elementToCreate = document.createElement('td');
-            htmlToInsert = `<td.<span id="totalTopScorePlayer${i}" class="player${i}"></span></td>`;
+            htmlToInsert = `<td><span id="bottomTopScorePlayer${i}" class="player${i}"></span></td>`;
             elementToCreate.innerHTML = htmlToInsert;
             elementToAppend.appendChild(elementToCreate);
 
@@ -263,22 +317,8 @@ function createPlayers(numOfPlayers) {
     // Function accepts a number, creates a playerObject for each player using default values for scores
     // Places this playerObject into playersArray        
     
-    // Default values to pass into player object
-    // Prevents NaN errors   
-     let name;
-    // let onesScore = 0;
-    // let twosScore = 0;
-    // let threesScore = 0;
-    // let foursScore = 0;
-    // let fivesScore = 0;
-    // let sixesScore = 0;
-    // let threeOfKind = 0;
-    // let fourOfKind = 0;
-    // let fullHouse = 0;
-    // let smallStraight = 0;
-    // let largeStraight = 0;
-    // let chance = 0;
-    // let bonus = 0;    
+    
+     let name;        
 
     // set iteration variable
     let i = 1;
@@ -387,9 +427,49 @@ function updateFivesScore(item) {
 function updateSixesScore(item) {
     let playerObject = fetchPlayerObject(item);
     playerObject.updateSixes = parseInt(item.value);
-    updateUpperScores(playerObject);
+    updateUpperScores(playerObject);   
+}
 
-    console.log(playerObject);    
+function updateThreeOfKindScore(item) {
+    let playerObject = fetchPlayerObject(item);
+    playerObject.updateThreeOfKind = parseInt(item.value);
+    updateBottomScores(playerObject);   
+}
+
+function updateFourOfKindScore(item) {
+    let playerObject = fetchPlayerObject(item);
+    playerObject.updateFourOfKind = parseInt(item.value);
+    updateBottomScores(playerObject);   
+}
+
+function updateFullHouseScore(item) {
+    let playerObject = fetchPlayerObject(item);
+    playerObject.updateFullHouse = parseInt(item.value);
+    updateBottomScores(playerObject);   
+}
+
+function updateSmallStraightScore(item) {
+    let playerObject = fetchPlayerObject(item);
+    playerObject.updateSmallStraight = parseInt(item.value);
+    updateBottomScores(playerObject);   
+}
+
+function updateLargeStraightScore(item) {
+    let playerObject = fetchPlayerObject(item);
+    playerObject.updateLargeStraight = parseInt(item.value);
+    updateBottomScores(playerObject);   
+}
+
+function updateChanceScore(item) {
+    let playerObject = fetchPlayerObject(item);
+    playerObject.updateChance = parseInt(item.value);
+    updateBottomScores(playerObject);   
+}
+
+function updateYahtzeeScore(item) {
+    let playerObject = fetchPlayerObject(item);
+    playerObject.updateYahtzee = parseInt(item.value);
+    updateBottomScores(playerObject);   
 }
 
 //********************************************************************/
@@ -427,6 +507,8 @@ function updateUpperScores(playerObject) {
     // Score check & update functions to run
     checkBonus(playerObject, total);
     updateTopTotalScore(playerObject, total, playerObject.bonus); 
+    // Update Grand Total
+    updateGrandTotalScore(playerObject)
 
 }
 
@@ -442,11 +524,15 @@ function checkBonus(playerObject, total) {
         playerObject.updateBonus = 35;
         // set value of Bonus box on sheet
         document.getElementById(`bonusScore${playerObject.id}`).innerHTML = 35;
+        // change element text colour
+        document.getElementById(`bonusScore${playerObject.id}`).style.color = "#35B897";
     } else {
         // set bonus attribute to 0
         playerObject.updateBonus = 0;
         // set value of Bonus box on sheet
-        document.getElementById(`bonusScore${playerObject.id}`).innerHTML = 0;
+        document.getElementById(`bonusScore${playerObject.id}`).innerHTML = '---';
+        // change element text colour
+        document.getElementById(`bonusScore${playerObject.id}`).style.color = "#FF7B7B";
     }
 }
 
@@ -458,14 +544,66 @@ function updateTopTotalScore(playerObject, total, bonus) {
     
     playerObject.updateTopTotalScore = total + bonus;
     document.getElementById(`totalTopScore${playerObject.id}`).innerHTML = playerObject.topTotalScore;
+    document.getElementById(`bottomTopScore${playerObject.id}`).innerHTML = playerObject.topTotalScore;
 }
 
+// CALCULATE AND UPDATE BOTTOM TOTAL SCORE
+function updateBottomScores(playerObject) {
+    // Accepts playerObject, totals the values of the bottom scores, inserts this value into the Total of lower section field in the bottom section of the score sheet
 
+    // Generate array of each attribute in playerObject to then iterate over
+    let playerObjectArray = Object.values(playerObject);    
 
+    let total = 0;
+    // i starts at '8' as this is the position in playerObjectArray of the first score of the lower section
+    let i = 8;
 
+    // loop through up to and including the final score (score for sixes = position 14) in playerObject
+    while (i <= 14) {
+        if (typeof(playerObjectArray[i]) == "undefined" || isNaN(playerObjectArray[i]) ) {
+            total += 0;
+        } else {
+            total += playerObjectArray[i];
+        }        
+        i++;
+    }
 
+    // set BottomScore attribute of the playerObject
+    playerObject.updateBottomScore = total;      
 
+    // set value of totalLower element
+    document.getElementById(`totalLower${playerObject.id}`).innerHTML = total; 
 
+    // Update Grand Total
+    updateGrandTotalScore(playerObject)
+
+}
+
+function updateGrandTotalScore(playerObject) {
+    // Calculate & update Grand Total for Player
+
+    // If the top and bottom total scores are currently undefined, set GrandTotal to zero.
+    // If either the top or bottom total score have a value, and the other is undefined, set GrandTotal to the valid value
+    // Else add top & bottom total score and set this as Grand Total value
+    if (typeof(playerObject.topTotalScore) == "undefined") {
+        if (typeof(playerObject.bottomScore) == "undefined") {
+            playerObject.updateGrandTotal = 0;
+        } else {
+            playerObject.updateGrandTotal = playerObject.bottomScore;
+        }
+    } else if (typeof(playerObject.bottomScore) == "undefined") {
+        if (typeof(playerObject.topTotalScore) == "undefined") {
+            playerObject.updateGrandTotal = 0;
+        } else {
+            playerObject.updateGrandTotal = playerObject.topTotalScore;
+        }
+    } else {
+        playerObject.updateGrandTotal = playerObject.topTotalScore + playerObject.bottomScore;
+    }
+
+    // Set html of Grand Total element
+    document.getElementById(`GrandTotal${playerObject.id}`).innerHTML = playerObject.grandTotal;
+}
 
 
 
@@ -479,3 +617,9 @@ function resetSheet() {
     location.reload();
 }
 
+// Disable mouse-scroll on number input fields
+document.addEventListener("wheel", function(event){
+    if(document.activeElement.type === "number"){
+        document.activeElement.blur();
+    }
+});
