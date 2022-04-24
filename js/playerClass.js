@@ -26,7 +26,7 @@ class Player {
      * @param {number} grandTotal The sum of topTotalScore and bottomScore.
      * @param {number} runningTotal Accumulated score when 'Play Again' button is used.
      */
-    constructor(id, name, ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance, yahtzee, topScore, topTotalScore, bonus, bottomScore, grandTotal, runningTotal) {
+    constructor(id, name, ones, twos, threes, fours, fives, sixes, threeOfKind, fourOfKind, fullHouse, smallStraight, largeStraight, chance, yahtzee, topScore, topTotalScore, bonus, bottomScore, grandTotal, runningTotal){
         this.id = id;
         this.name = name;
         this.ones = ones;

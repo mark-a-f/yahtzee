@@ -128,6 +128,15 @@ button {
     box-shadow: none;
 }
 
+/*******************/
+/** DICE IMAGE AREA **/
+/********************/
+
+.dice-image-area img {
+    width: 50px;
+    margin: 0.5rem;
+}
+
 /*****************/
 /** LANDING PAGE INFORMATION **/
 /*****************/
