@@ -3,7 +3,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Yahtzee Score Tracker</title>
+        <title>Yahtzee</title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,6 @@
     <body>
 
         <section class="hero">
-
             <img src="/assets/img/title_logo.png" alt="Yahtzee title">
             <div class="inputWrapper">
                 <label for="numOfPlayers">Number of players</label>
@@ -24,16 +23,17 @@
             </div>
             <div class="inputWrapper">
                 <button id="startBtn">Start Game</button>
-                <button id="resetBtn">Reset Game</button>
-                <button id="playAgainBtn">Play Again</button>
+                <button id="resetBtn">Reset Game</button>                
             </div>
-
-
         </section>
 
-        <section class="table-container">
+        <section id="landing-info" class="landing-info">
+            <h2>How To Play</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos quam corporis enim consequatur, quaerat libero fuga sint error consectetur provident voluptatibus laboriosam pariatur beatae nihil eius hic blanditiis quasi voluptas.</p>
+        </section>
 
-            <table>
+        <section id="table-container" class="table-container">
+            <table class="table">
                 <thead>
                     <tr id="row1">
                         <th>Name</th>
@@ -214,10 +214,25 @@
                     </td>
                     <!-- <td id="GrandTotalPlayer1" class="player1"></td> -->
                 </tr>
+                <tr id="row-runningTotal">
+                    <td>
+                        <h5>Running Total</h5>
+                    </td>
+                    <!-- <td id="RunningTotalPlayer1" class="player1"></td> -->
+                </tr>
             </table>
         </section>
 
+        <div class="lower-btn-surround">
+            <button id="playAgainBtn">Play Again</button>
+            <button id="resetBtnBottom">Reset Game</button>
+        </div>
 
+
+        <script type="text/javascript" src="js/playerClass.js"></script>
+        <script type="text/javascript" src="js/createPlayers.js"></script>
+        <script type="text/javascript" src="js/createTable.js"></script>
+        <script type="text/javascript" src="js/updateScores.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
 
     </body>
