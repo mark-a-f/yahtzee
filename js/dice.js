@@ -15,10 +15,12 @@
 class Dice {
 
     /** 
+     * @param {string} id Unique ID for each dice object.
      * @param {number} value The numeric value of the dice (1-6).
      * @param {boolean} frozen If True, dice is frozen and will not re-roll it's value.
      */
-    constructor(value = 1, frozen = false){
+    constructor(id, value = 1, frozen = false){
+        this.id = id;
         this.value = value; // Default value is 1
         this.frozen = frozen; // Default value is false
     }
@@ -35,13 +37,18 @@ class Dice {
 
 // Create Dice Objects
 let diceObjectArray = [];
-function createDice() {    
-    let i = 1;
-    while (i <= 5) {        
-        diceObjectArray[i] = new Dice();
-        i++;
-    }
-    console.log(diceObjectArray);
+function createDice() {     
+    if (diceObjectArray.length == 0){
+        let i = 1;
+        let id;
+        while (i <= 5) {
+            id = `dice${i}`;        
+            diceObjectArray[i] = new Dice(id);
+            i++;           
+        }    
+    } else {
+        return false;
+    } 
 }
 
 document.getElementById('rollDice').addEventListener('click', createDice);
@@ -63,24 +70,31 @@ function rollDice() {
             let currentDice = diceObjectArray[i];
             currentDice.frozen = false;
             currentDice.value = getRandomDiceValue();
+            setIMG(currentDice);
             i++;
         }
-        diceRollCounter++; // counter now 2        
+        diceRollCounter++; // counter now 2
+        document.getElementById('roll-number').innerHTML = '2';        
     } else {
-        let i = 0;
-        while (i < diceObjectArray.length) {
+        let i = 1;
+        while (i <= 5) {
             let currentDice = diceObjectArray[i];
             if (currentDice.frozen == false){
                 currentDice.value = getRandomDiceValue();
-                i++
-            }            
+                setIMG(currentDice);
+                i++;
+            }
+            i++;            
         }
         if (diceRollCounter == 2){
             diceRollCounter++;
+            document.getElementById('roll-number').innerHTML = '1';
         } else {
             diceRollCounter = 1;
-        }           
-    }    
+            document.getElementById('roll-number').innerHTML = 'Next Player!';
+            removeBorder();
+        }                   
+    } 
 }
 
 /**
@@ -101,14 +115,51 @@ document.getElementById('dice5').addEventListener('click', changeFreezeState);
 // Retrieve id of the dice via the element that triggered the function
 // Changes the dice's frozen state
 function changeFreezeState(element){
-    let dice = element.target;
-    let diceNum = dice.id;
+    let diceElement = element.target;
+    let diceNum = diceElement.id;
     diceNum = parseInt(diceNum.substring(4)); 
     let currentDice = diceObjectArray[diceNum]
     currentDice.changeFrozenState();
-    console.log(currentDice);
-    
+    changeOpacity(diceElement);  
+}
+
+// Change look of dice when frozen
+function changeOpacity(diceIMG) {
+    if (diceIMG.style.border == "0px solid rgb(255, 0, 0)"){
+        diceIMG.style.border = "2px solid rgb(255, 0, 0)";
+    } else {
+        diceIMG.style.border = "0px solid rgb(255, 0, 0)";
+    }
+}
+
+// Remove border from all dice img
+function removeBorder() {
+    document.getElementById('dice1').style.border = "0px solid rgb(255, 0, 0)"
+    document.getElementById('dice2').style.border = "0px solid rgb(255, 0, 0)"
+    document.getElementById('dice3').style.border = "0px solid rgb(255, 0, 0)"
+    document.getElementById('dice4').style.border = "0px solid rgb(255, 0, 0)"
+    document.getElementById('dice5').style.border = "0px solid rgb(255, 0, 0)"
+}
+
+// Change IMG based on the dice value
+function setIMG(die) {
+    let value = die.value;
+    let id = die.id;
+    document.getElementById(id).src = `/assets/img/dice/${value}.png`
 }
 
 
-// 
+
+// Show Dice
+document.getElementById('rollDice').addEventListener('click', showDice);
+function showDice() {
+    document.querySelector('.dice-image-area').style.display = "flex";
+    document.querySelector('.rolls-left').style.display = "flex";
+}
+
+// Hide Dice
+document.getElementById('playAgainBtn').addEventListener('click', hideDice);
+function hideDice() {
+    document.querySelector('.dice-image-area').style.display = "none";
+    document.querySelector('.rolls-left').style.display = "none";
+}
