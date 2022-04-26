@@ -20,6 +20,7 @@ function startFunctions() {
         createPlayers(numOfPlayers);        
         hideInfoPanel();        
         displayResetButtons();
+        displayRollDiceButton();
         displayPlayAgainButton();
         displayTable();
     }   
@@ -29,7 +30,7 @@ function startFunctions() {
 document.querySelector('#startBtn').addEventListener('click', createTable);
 
 // Create Player Objects
-document.querySelector('#startBtn').addEventListener('click', createTable);
+document.querySelector('#startBtn').addEventListener('click', createPlayers);
 
 // Save the running total score
 document.getElementById('playAgainBtn').addEventListener('click', saveRunningTotal);
@@ -37,6 +38,10 @@ document.getElementById('playAgainBtn').addEventListener('click', saveRunningTot
 function displayResetButtons() {
     document.querySelector('#resetBtn').style.display = "inline-block";
     document.querySelector('#resetBtnBottom').style.display = "inline-block";
+}
+
+function displayRollDiceButton() {
+    document.querySelector('#rollDice').style.display = "inline-block";
 }
 
 function displayTable() {
@@ -192,3 +197,4 @@ function showInfoPanel () {
 function hideInfoPanel() {        
     document.getElementById('landing-info').style.display = "none";
 }
+

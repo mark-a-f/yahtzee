@@ -68,7 +68,6 @@ button {
 .hero {       
     max-width: 80rem;
     margin: 0 auto;
-    margin-bottom: 2rem;
     padding: 1rem;    
 }
 
@@ -126,6 +125,37 @@ button {
     color: #FF7B7B;
     background: #FFE4E4;
     box-shadow: none;
+}
+
+#rollDice {
+    display: none;
+}
+
+/*******************/
+/** DICE IMAGE AREA **/
+/********************/
+
+.dice-image-area {
+    display: none;
+}
+
+.dice-image-area img {
+    width: 50px;
+    margin: 0.5rem;
+    border: 0px solid #FF0000;
+    box-sizing: border-box;  
+}
+
+.rolls-left {
+    display: none;
+}
+
+.inputWrapper span{
+    font-size: 2rem;
+}
+
+.inputWrapper span + span {
+    margin-left: 0.5rem;
 }
 
 /*****************/

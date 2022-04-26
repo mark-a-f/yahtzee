@@ -23,7 +23,18 @@
             </div>
             <div class="inputWrapper">
                 <button id="startBtn">Start Game</button>
+                <button id="rollDice">Roll Dice</button>
                 <button id="resetBtn">Reset Game</button>                
+            </div>
+            <div class="inputWrapper dice-image-area">
+                <img id="dice1" src="/assets/img/dice/1.png" alt="" style="border: 0px solid rgb(255, 0, 0)">
+                <img id="dice2" src="/assets/img/dice/1.png" alt="" style="border: 0px solid rgb(255, 0, 0)">
+                <img id="dice3" src="/assets/img/dice/1.png" alt="" style="border: 0px solid rgb(255, 0, 0)">
+                <img id="dice4" src="/assets/img/dice/1.png" alt="" style="border: 0px solid rgb(255, 0, 0)">
+                <img id="dice5" src="/assets/img/dice/1.png" alt="" style="border: 0px solid rgb(255, 0, 0)">                                
+            </div>
+            <div class="inputWrapper rolls-left">
+                <span>Rolls Left: </span><span id="roll-number">Next Player!</span>
             </div>
         </section>
 
@@ -52,7 +63,7 @@
                             <h6>Ones</h6>
                             <span>(count and add only ones)</span>
                         </div>
-                        <div><img src="/assets/img/dice/One.png" alt="Dice showing 'one'"></div>
+                        <div><img src="/assets/img/dice/1.png" alt="Dice showing 'one'"></div>
                     </td>
                     <!-- <td><input type="number" id="scoreOnesPlayer1" class="player1"></td> -->
                 </tr>
@@ -62,7 +73,7 @@
                             <h6>Twos</h6>
                             <span>(count and add only twos)</span>
                         </div>
-                        <div><img src="/assets/img/dice/Two.png" alt="Dice showing 'two'"></div>
+                        <div><img src="/assets/img/dice/2.png" alt="Dice showing 'two'"></div>
                         <!-- <td><input type="number" id="scoreTwosPlayer1" class="player1"></td> -->
                     </td>
                 </tr>
@@ -72,7 +83,7 @@
                             <h6>Threes</h6>
                             <span>(count and add only threes)</span>
                         </div>
-                        <div><img src="/assets/img/dice/Three.png" alt="Dice showing 'three'"></div>
+                        <div><img src="/assets/img/dice/3.png" alt="Dice showing 'three'"></div>
                         <!-- <td><input type="number" id="scoreThreesPlayer1" class="player1"></td> -->
                     </td>
                 </tr>
@@ -82,7 +93,7 @@
                             <h6>Fours</h6>
                             <span>(count and add only fours)</span>
                         </div>
-                        <div><img src="/assets/img/dice/Four.png" alt="Dice showing 'four'"></div>
+                        <div><img src="/assets/img/dice/4.png" alt="Dice showing 'four'"></div>
                         <!-- <td><input type="number" id="scoreFoursPlayer1" class="player1"></td> -->
                     </td>
                 </tr>
@@ -92,7 +103,7 @@
                             <h6>Fives</h6>
                             <span>(count and add only sixes)</span>
                         </div>
-                        <div><img src="/assets/img/dice/Five.png" alt="Dice showing 'five'"></div>
+                        <div><img src="/assets/img/dice/5.png" alt="Dice showing 'five'"></div>
                         <!-- <td><input type="number" id="scoreFivesPlayer1" class="player1"></td> -->
                     </td>
                 </tr>
@@ -102,7 +113,7 @@
                             <h6>Sixes</h6>
                             <span>(count and add only sixes)</span>
                         </div>
-                        <div><img src="/assets/img/dice/Six.png" alt="Dice showing 'six'"></div>
+                        <div><img src="/assets/img/dice/6.png" alt="Dice showing 'six'"></div>
                         <!-- <td><input type="number" id="scoreSixesPlayer1" class="player1"></td> -->
                     </td>
                 </tr>
@@ -233,6 +244,7 @@
         <script type="text/javascript" src="js/createPlayers.js"></script>
         <script type="text/javascript" src="js/createTable.js"></script>
         <script type="text/javascript" src="js/updateScores.js"></script>
+        <script type="text/javascript" src="js/dice.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
 
     </body>
