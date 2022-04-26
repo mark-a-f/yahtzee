@@ -47,7 +47,7 @@
  * 
  * 
  * Created by Mark Fisher || github.com/mark-a-fisher
- * Design by Franziska Miller ||  
+ * Design by Franziska Miller || IG: frangipani.arts 
  * 
  *  */
 
